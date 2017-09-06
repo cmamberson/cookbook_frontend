@@ -19,8 +19,8 @@
     </tr>
   </thead>
   <tbody>
-  <% if(typeof recipes != "undefined" && recipe.length > 0){ %>
-    <% recipe.forEach(function(recipe){ %>
+  <% if(typeof recipes != "undefined" && recipes.length > 0){ %>
+    <% recipes.forEach(function(recipe){ %>
       <tr>
         <td><%= recipe.recipe_id %></td>
         <td><%= recipe.title %></td>
