@@ -34,7 +34,14 @@
 
    $(function(){
 
-   	//code goes here
+     $('#recipeTable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+        colReorder: true,
+        "scrollX": true
+        } );
 
    })
 
