@@ -1,18 +1,18 @@
 /**
- * StudentController
+ * RecipeController
  *
- * @description :: Server-side logic for managing students
+ * @description :: Server-side logic for managing Recipes
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
 var Client = require('node-rest-client').Client;
 var client = new Client();
-var endpoint = "http://localhost:1337/recipe"
+var endpoint = "https://rocky-dusk-62881.herokuapp.com/api/recipes"
 
 module.exports = {
 
   /**
-   * `StudentController.create()`
+   * `RecipeController.create()`
    */
   create: function (req, res) {
 
@@ -41,7 +41,7 @@ module.exports = {
 
 
   /**
-   * `StudentController.read()`
+   * `RecipeController.read()`
    */
   read: function (req, res) {
 
@@ -55,7 +55,7 @@ module.exports = {
 
 
    /**
-   * `StudentController.update()`
+   * `RecipeController.update()`
    */
   update: function (req, res) {
 
@@ -90,7 +90,7 @@ module.exports = {
   },
 
   /**
-   * `StudentController.delete()`
+   * `RecipeController.delete()`
    */
   delete: function (req, res) {
 
