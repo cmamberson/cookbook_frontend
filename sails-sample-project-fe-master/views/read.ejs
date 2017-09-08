@@ -14,8 +14,7 @@
       <th>Recipe Title</th>
       <th>Description</th>
       <th>Cook Time</th>
-      <th>Ingredients</th>
-      <th>Instructions</th>
+      <th>Full Instructions</th>
     </tr>
   </thead>
   <tbody>
@@ -26,10 +25,17 @@
         <td><%= recipe.title %></td>
         <td><%= recipe.description %></td>
         <td><%= recipe.numberOfMinutes %></td>
-        <td><%= recipe.ingredients %></td>
-        <td><%= recipe.instructions %></td>
+        <td><button type=“submit” class=“btn btn-default viewButtons” data-recipeid=“<%= recipe.id %>“>View Details</button></td>
       </tr>
     <% }) %>
   <% } %>
   </tbody>
 </table>
+
+<table>
+  <thead>
+  </thead>
+ <tbody id='viewDetails'>
+ </tbody>
+</table>
+</div>
