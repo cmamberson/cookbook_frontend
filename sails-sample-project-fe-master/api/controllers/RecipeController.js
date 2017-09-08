@@ -7,7 +7,7 @@
 
 var Client = require('node-rest-client').Client;
 var client = new Client();
-var endpoint = "https://rocky-dusk-62881.herokuapp.com/api/recipes"
+var endpoint = "https://rocky-dusk-62881.herokuapp.com/api/recipes/"
 
 module.exports = {
 
@@ -27,7 +27,7 @@ module.exports = {
 
         client.post(endpoint, args, function (data, response) {
             // return res.view('create', {success: { message: "Record added successfully"}});
-            if(response.statusCode != "201"){
+            if(response.statusCode != "200"){
                 req.addFlash("error", data.message.substring(data.message.indexOf("•")));
                 return res.redirect('/create');
             }
@@ -104,7 +104,7 @@ module.exports = {
 
     }else{
 
-      client.delete(endpoint + "/" + req.body.recipe_id, function (data, response) {
+      client.delete(endpoint + "/" + req.body.id, function (data, response) {
 
         if(response.statusCode != "200"){
             req.addFlash("error", data.message);

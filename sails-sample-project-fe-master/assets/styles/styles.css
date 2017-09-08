@@ -13,3 +13,9 @@ body {
         max-width: 1024px;
     }
 }
+
+#pageLogo{
+
+  width: 100px;
+  float: left;
+}

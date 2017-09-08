@@ -42,16 +42,35 @@ module.exports = {
     return res.redirect('/create_ingredients');
 
   })
-  
+
 },
 
   /**
    * `IngredientController.delete()`
    */
   delete: function (req, res) {
-    return res.json({
-      todo: 'delete() is not implemented yet!'
-    });
+      if(req.method != "POST"){
+
+        client.get(endpoint, function (data, response) {
+          return res.view('delete_ingredients', {recipes: data});
+        }).on('error', function (err) {
+            return res.view('delete_ingredients', {error: { message: "There was an error getting the recipes"}});
+        });
+
+      }else{
+
+        client.delete(endpoint + "/" + req.body.id, function (data, response) {
+
+          if(response.statusCode != "200"){
+              req.addFlash("error", data.message);
+              return res.redirect('/delete_ingredients');
+          }
+
+          req.addFlash("success", "Record deleted successfully");
+          return res.redirect('/delete_ingredients');
+
+        })
+      }
   },
 
 
