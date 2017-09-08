@@ -18,30 +18,35 @@ module.exports = {
    */
 	 create: function(req, res) {
 
-  if (req.method != "POST") {
-    return client.get(endpoint, function (data) {
-      res.view('create_ingredients', { recipes: data });
-    })
-  }
+      if (req.method != "POST") {
+        return client.get(endpoint, function (data) {
+          res.view('create_ingredients', { recipes: data });
+        })
+      }
 
-  var args = {
-    data: req.body,
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
+      var args = {
+        data: req.body,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
 
-  client.post(endpoint, args, function(data, response) {
-    // return res.view('create', {success: { message: "Record added successfully"}});
-    if (response.statusCode != "201") {
-      req.addFlash("error", data.message.substring(data.message.indexOf("•")));
-      return res.redirect('/create_ingredients');
-    }
 
-    req.addFlash("success", "Record created successfully");
-    return res.redirect('/create_ingredients');
+      client.post(endpoint + "/" + req.params.id + "/ingredients", args, function(data, response) {
+        // return res.view('create', {success: { message: "Record added successfully"}});
+        if (response.statusCode != "200") {
+          req.addFlash("error", JSON.stringify(data));
+          return res.redirect('/create_ingredients');
+        }
 
-  })
+        req.addFlash("success", "Record created successfully");
+        return res.redirect('/create_ingredients');
+
+      }).on('error', function (err) {
+        console.log(err);
+          return res.view('create_ingredients', {error: { message: "Tdidnt work"}});
+      });
+
 
 },
 
@@ -59,7 +64,7 @@ module.exports = {
 
       }else{
 
-        client.delete(endpoint + "/" + req.body.id, function (data, response) {
+        client.delete(endpoint + "/" + req.params.id + "/ingredients/" + req.params.ingredientID, function (data, response) {
 
           if(response.statusCode != "200"){
               req.addFlash("error", data.message);

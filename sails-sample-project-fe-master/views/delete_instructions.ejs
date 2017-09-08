@@ -9,10 +9,10 @@
 
 <!-- //Adding instructions form -->
 <h2> Delete Instructions</h2>
-<select id="recipe_id" name="recipe_id">
+<select id="recipe_instruction_destroyer" name="recipe_id">
       <% if(typeof recipes != "undefined" && recipes.length > 0){ %>
         <% recipes.forEach(function(recipe){ %>
-          <option value="<%= recipe.id %>">
+          <option value="<%= encodeURI(JSON.stringify(recipe)) %>">
             <%= recipe.title %>
           </option>
         <% }) %>
@@ -20,14 +20,13 @@
       </select>
 
       <div>
+
       <table>
-        <thead>
-          <tr>
-            <th>Step Number</th>
-            <th> Instruction</th>
-          </tr>
-        </thead>
-        <tbody id="deleteInstructionsList">
-        </tbody>
+      <thead>
+      </thead>
+      <tbody id="deleteInstructionsForm">
+      </tbody>
       </table>
+
+
       </div>

@@ -5,57 +5,42 @@
 
 let ingredientList = $('#ingredientList');
 let ingredientsButton = $('#ingredientsButton');
-let deleteIngredientList = $('#deleteIngredientList');
-
-//Add Ingredients
-function getIngredients(){
-
-  for (let i = 0; i < 10; i++){
-      ingredientList.append(`
-        <tr>
-          <td>test</td>
-          <td>this</td>
-          <td>stuff</td>
-        </tr>
-          `);
-    };
-}
-//runs Add Function
-getIngredients();
-
-    ingredientsButton.on("click", function(event) {
-      event.preventDefault();
+let deleteIngredientsTable = $('#deleteIngredientsTable');
 
 
-              alert("Successfully Added");
-//clear table
-              ingredientList.html("");
-//clear input fields
-              addIngredientForm[0].reset();
-//rerun function to display updated table
-              getIngredients();
-    })
+$('#recipe_chooser_destroyer').on('change', function (e) {
+    const recipe = JSON.parse(decodeURI($(this).val()));
+    console.log(recipe);
+    deleteIngredientsTable.html("");
+    for (let i = 0; i < recipe.ingredients.length; i++){
+        deleteIngredientsTable.append(`
+          <tr>
+            <td>${recipe.ingredients[i].foodItem}</td>
+            <td>
+              <form method="post" action="/recipe/${recipe.id}/delete_ingredients/${recipe.ingredients[i].ingredientId}">
+                <button type="submit" class="btn btn-default">Delete</button>
+              </form>
+            </td>
+          </tr>
+        `);
+        };
+      
+
+})
+
+
+
+
+$('#recipe_id').on('change', function (e) {
+    const recipeid = $(this).find("option:selected").val() || 1;
+    console.log(recipeid);
+    $('#addIngredientForm').attr('action', `/recipe/${recipeid}/create_ingredient`)
+})
 
 
 //Delete Ingredients
-function deleteIngredients(){    for (let i = 0; i < 10; i++){
-      deleteIngredientList.append(`
-        <tr>
-          <td>test</td>
-          <td>this</td>
-          <td>stuff</td>
-          <td><button type="submit" class="btn btn-default deleteButtons" data-ingredientid="${i}">Delete</button></td>
-        </tr>
-          `);
-    };
-}
-//runs delete function
-deleteIngredients();
 
-deleteIngredientList.on("click", ".deleteButtons", function(event){
-  event.preventDefault();
-  console.log($(this).data("ingredientid"));
-  })
+
 
   })
 
