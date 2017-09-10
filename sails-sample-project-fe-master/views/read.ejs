@@ -20,24 +20,24 @@
   <tbody>
   <% if(typeof recipes != "undefined" && recipes.length > 0){ %>
     <% recipes.forEach(function(recipe){ %>
-      <tr>
+      <tr data-recipeid="<%= recipe.id %>">
         <td><%= recipe.id %></td>
         <td><%= recipe.title %></td>
         <td><%= recipe.description %></td>
-        <td><%= recipe.numberOfMinutes %></td>
-        <td><button type="submit" class="btn btn-default viewButtons" data-recipeid="<%= recipe.id %>">View Details</button></td>
+        <td><%= recipe.numberOfMinutes %> minutes</td>
+        <td>
+        <a href="#" class="btn btn-default viewButtons">View Details</a>
+        </td>
       </tr>
     <% }) %>
   <% } %>
   </tbody>
 </table>
-
-<table>
-  <thead>
-  </thead>
- <tbody id='viewDetails'>
-
-   
- </tbody>
-</table>
+<div>
+  <table>
+    <thead>
+    </thead>
+    <tbody id='viewDetails'>
+    </tbody>
+  </table>
 </div>

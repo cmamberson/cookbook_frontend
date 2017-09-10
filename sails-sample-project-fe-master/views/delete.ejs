@@ -14,6 +14,7 @@
     <div class="form-group">
       <label for="id">SELECT A RECIPE TO DELETE</label><br/>
       <select id="id" name="id">
+        <option value="">Choose a recipe</option>
       <% if(typeof recipes != "undefined" && recipes.length > 0){ %>
         <% recipes.forEach(function(recipe){ %>
           <option value="<%= recipe.id %>">

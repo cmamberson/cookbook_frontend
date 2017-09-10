@@ -47,13 +47,14 @@ module.exports.routes = {
   '/delete':'RecipeController.delete',
 
 
+
   '/recipe/:id/delete_instructions/:instructionID':'InstructionsController.delete',
   '/recipe/:id/create_instructions':'InstructionsController.create',
 
 
   '/recipe/:id/delete_ingredients/:ingredientID':'IngredientController.delete',
   '/recipe/:id/create_ingredient':'IngredientController.create',
-
+  '/recipes/:id':'RecipeController.details',
 
   '/create_ingredients':'IngredientController.create',
   '/create_instructions':'InstructionsController.create',
