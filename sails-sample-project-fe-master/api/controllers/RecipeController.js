@@ -90,6 +90,17 @@ module.exports = {
     }
   },
 
+  details: function (req, res) {
+       if (req.method !== 'GET') {
+         throw new Error("This was a really bad decision on your part.");
+       }
+
+       client.get(endpoint + "/" + req.params.id, function (data, response) {
+         return res.send(data);
+
+
+       });
+     },
   /**
    * `RecipeController.delete()`
    */

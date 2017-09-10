@@ -2,60 +2,36 @@
 
   $(function(){
 
+let deleteInstructionsForm = $('#deleteInstructionsForm');
 
-let instructionsList = $('#instructionsList');
-let instructionsButton = $('#instructionsButton');
-let deleteInstructionsList = $('#deleteInstructionsList');
 
-//Add Instruction function
-    function getInstructions(){
+//add instructions on change of dropdown selection
+    $('#recipe_id').on('change', function (e) {
+        const recipeid = $(this).find("option:selected").val() || 1;
+        console.log(recipeid);
+        $('#addInstructionsForm').attr('action', `/recipe/${recipeid}/create_instructions`)
+    })
 
-      for (let i = 0; i < 10; i++){
-      instructionsList.append(`
-        <tr>
-          <td>${i + 1}</td>
-          <td>test</td>
-        </tr>
-          `);
-    };
-}
 
-//Runs Add Instructions
-getInstructions();
+//populates delete instructions page with the instructions and delete buttons with individual forms
+//when button for instruction is clicked, it will send the request with the proper recipe and instruction IDs to remove the item
+    $('#recipe_instruction_destroyer').on('change', function (e) {
+        const recipe = JSON.parse(decodeURI($(this).val()));
+        console.log(recipe);
+        deleteInstructionsForm.html("");
 
-instructionsButton.on("click", function(event) {
-      event.preventDefault();
-
-      alert("Successfully Added");
-//clear table
-      instructionsList.html("");
-//clear input fields
-      addIngredientForm[0].reset();
-//rerun function to display updated table
-      getInstructions();
-})
-
-//Delete Instructions function
-function deleteInstructions(){
-
-  for (let i = 0; i < 10; i++){
-  deleteInstructionsList.append(`
-    <tr>
-      <form action="/delete_instructions" method="POST">
-      <td>${i + 1}</td>
-      <td>test</td>
-      <td><button type="submit" class="btn btn-default deleteButtons" data-instructionid="${i}">Delete</button></td>
-</form>
-    </tr>
-      `);
-};
-}
-//runs delete function
-deleteInstructions();
-
-deleteInstructionsList.on("click", ".deleteButtons", function(event){
-  event.preventDefault();
-  console.log($(this).data("instructionid"));
+        for (let i = 0; i < recipe.instructions.length; i++){
+            deleteInstructionsForm.append(`
+              <tr>
+                <td>${recipe.instructions[i].step}</td>
+                <td>
+                <form method="post" action="/recipe/${recipe.id}/delete_instructions/${recipe.instructions[i].instructionId}">
+                  <button type="submit" class="btn btn-default">Delete</button>
+                </form>
+                  </td>
+              </tr>
+            `);
+        };
+    })
   })
-})
 })()

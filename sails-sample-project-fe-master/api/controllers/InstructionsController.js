@@ -28,17 +28,21 @@ module.exports = {
 						 headers: { "Content-Type": "application/json" }
 				 };
 
-				 client.post(endpoint, args, function (data, response) {
+				 client.post(endpoint + "/" + req.params.id + "/instructions", args, function (data, response) {
 						 // return res.view('create', {success: { message: "Record added successfully"}});
-						 if(response.statusCode != "201"){
-								 req.addFlash("error", data.message.substring(data.message.indexOf("•")));
+						 if(response.statusCode != "200"){
+								 req.addFlash("error", JSON.stringify(data));
 								 return res.redirect('/create_instructions');
 						 }
 
 						 req.addFlash("success", "Record created successfully");
 						 return res.redirect('/create_instructions');
 
-				 })
+				 }).on('error', function (err) {
+          console.log(err);
+          return res.view('create_instructions', {error: { message: "Tdidnt work"}});
+
+       });
 
      },
 
@@ -56,7 +60,7 @@ module.exports = {
 
     }else{
 
-      client.delete(endpoint + "/" + req.body.id, function (data, response) {
+      client.delete(endpoint + "/" + req.params.id + "/instructions/" + req.params.instructionID, function (data, response) {
 
         if(response.statusCode != "200"){
             req.addFlash("error", data.message);

@@ -9,33 +9,23 @@
 
 <!-- //Adding instructions form -->
 <h2> Add Instructions</h2>
-<select id="recipe_id" name="recipe_id">
+<select id="recipe_id" name="id">
+  <option value="">Choose a recipe</option>
       <% if(typeof recipes != "undefined" && recipes.length > 0){ %>
         <% recipes.forEach(function(recipe){ %>
-          <option value="<%= recipe.recipe_id %>">
+          <option value="<%= recipe.id %>">
             <%= recipe.title %>
           </option>
         <% }) %>
       <% } %>
       </select>
 
-      <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Step Number</th>
-            <th> Instruction</th>
-          </tr>
-        </thead>
-        <tbody id="instructionsList">
-        </tbody>
-      </table>
-      </div>
-<form action="/create" method="POST" class="form-horizontal" id="addInstructionsForm">
+
+<form action="/recipe/:id/create_instructions" method="POST" class="form-horizontal" id="addInstructionsForm">
   <div class="form-group">
     <label for="instructions" class="col-sm-2 control-label">Instruction</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="instructions" name="instructions" placeholder="example" required>
+      <input type="text" class="form-control" id="step" name="step" placeholder="ex. Preheat Oven to 350 degrees" required>
     </div>
   </div>
   <div class="form-group">
